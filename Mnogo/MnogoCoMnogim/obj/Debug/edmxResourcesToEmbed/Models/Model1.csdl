@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZakazStroiMaterialsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ZakazStroiMaterialsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Order" EntityType="ZakazStroiMaterialsModel.Order" />
+    <EntitySet Name="OrderProduct" EntityType="ZakazStroiMaterialsModel.OrderProduct" />
+    <EntitySet Name="Product" EntityType="ZakazStroiMaterialsModel.Product" />
+    <EntitySet Name="sysdiagrams" EntityType="ZakazStroiMaterialsModel.sysdiagrams" />
+    <EntitySet Name="TypeOfPayment" EntityType="ZakazStroiMaterialsModel.TypeOfPayment" />
+    <EntitySet Name="TypeOfProduct" EntityType="ZakazStroiMaterialsModel.TypeOfProduct" />
+    <AssociationSet Name="FK_Order_TypeOfPayment" Association="ZakazStroiMaterialsModel.FK_Order_TypeOfPayment">
+      <End Role="TypeOfPayment" EntitySet="TypeOfPayment" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderProduct_Order" Association="ZakazStroiMaterialsModel.FK_OrderProduct_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderProduct" EntitySet="OrderProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderProduct_Product" Association="ZakazStroiMaterialsModel.FK_OrderProduct_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderProduct" EntitySet="OrderProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_TypeOfProduct" Association="ZakazStroiMaterialsModel.FK_Product_TypeOfProduct">
+      <End Role="TypeOfProduct" EntitySet="TypeOfProduct" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="TypeOfDelivery" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="idTypeOfPayment" Type="Int32" />
+    <NavigationProperty Name="TypeOfPayment" Relationship="ZakazStroiMaterialsModel.FK_Order_TypeOfPayment" FromRole="Order" ToRole="TypeOfPayment" />
+    <NavigationProperty Name="OrderProduct" Relationship="ZakazStroiMaterialsModel.FK_OrderProduct_Order" FromRole="Order" ToRole="OrderProduct" />
+  </EntityType>
+  <EntityType Name="OrderProduct">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idProducta" Type="Int32" Nullable="false" />
+    <Property Name="idOrdera" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="ZakazStroiMaterialsModel.FK_OrderProduct_Order" FromRole="OrderProduct" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="ZakazStroiMaterialsModel.FK_OrderProduct_Product" FromRole="OrderProduct" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="IdTypeOfProduct" Type="Int32" Nullable="false" />
+    <Property Name="Size" Type="Double" />
+    <NavigationProperty Name="OrderProduct" Relationship="ZakazStroiMaterialsModel.FK_OrderProduct_Product" FromRole="Product" ToRole="OrderProduct" />
+    <NavigationProperty Name="TypeOfProduct" Relationship="ZakazStroiMaterialsModel.FK_Product_TypeOfProduct" FromRole="Product" ToRole="TypeOfProduct" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TypeOfPayment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeOfPayment1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Order" Relationship="ZakazStroiMaterialsModel.FK_Order_TypeOfPayment" FromRole="TypeOfPayment" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="TypeOfProduct">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="ZakazStroiMaterialsModel.FK_Product_TypeOfProduct" FromRole="TypeOfProduct" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_Order_TypeOfPayment">
+    <End Type="ZakazStroiMaterialsModel.TypeOfPayment" Role="TypeOfPayment" Multiplicity="0..1" />
+    <End Type="ZakazStroiMaterialsModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfPayment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="idTypeOfPayment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderProduct_Order">
+    <End Type="ZakazStroiMaterialsModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="ZakazStroiMaterialsModel.OrderProduct" Role="OrderProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="OrderProduct">
+        <PropertyRef Name="idOrdera" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderProduct_Product">
+    <End Type="ZakazStroiMaterialsModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="ZakazStroiMaterialsModel.OrderProduct" Role="OrderProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="OrderProduct">
+        <PropertyRef Name="idProducta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_TypeOfProduct">
+    <End Type="ZakazStroiMaterialsModel.TypeOfProduct" Role="TypeOfProduct" Multiplicity="1" />
+    <End Type="ZakazStroiMaterialsModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfProduct">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="IdTypeOfProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

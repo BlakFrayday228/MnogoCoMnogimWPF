@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="49f2cd8a76bf497ebedb118c2cf2308b" Name="Diagram1">
+        <EntityTypeShape EntityType="ZakazStroiMaterialsModel.Order" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="ZakazStroiMaterialsModel.OrderProduct" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="ZakazStroiMaterialsModel.Product" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="ZakazStroiMaterialsModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="ZakazStroiMaterialsModel.TypeOfPayment" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="ZakazStroiMaterialsModel.TypeOfProduct" Width="1.5" PointX="0.75" PointY="1.375" />
+        <AssociationConnector Association="ZakazStroiMaterialsModel.FK_Order_TypeOfPayment" />
+        <AssociationConnector Association="ZakazStroiMaterialsModel.FK_OrderProduct_Order" />
+        <AssociationConnector Association="ZakazStroiMaterialsModel.FK_OrderProduct_Product" />
+        <AssociationConnector Association="ZakazStroiMaterialsModel.FK_Product_TypeOfProduct" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
